@@ -50,6 +50,22 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           elevation: 5.0,
           title: Text('XC Lyrics Finder'),
+          actions: <Widget>[
+            IconButton(
+              padding: EdgeInsets.only(right: 50.0),
+              onPressed: () {
+                setState(() {
+                  _isLoadiing = true;
+                });
+                _getJsonData();
+              },
+              icon: Icon(
+                Icons.refresh,
+                color: Colors.white,
+              ),
+              iconSize: 28.0,
+            )
+          ],
         ),
         body: _isLoadiing
             ? Center(child: CircularProgressIndicator())
