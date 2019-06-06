@@ -26,9 +26,6 @@ class _HomePageState extends State<HomePage> {
 
   String privateKey = DotEnv().env['MM_PRIVATE_KEY'];
 
-  final String uri =
-    'https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=top&page=1&page_size=10&country=it&f_has_lyrics=1&apikey=c603f44e0a2b9abca15b39158bc59beb';
-
   List<dynamic> topSongs;
 
   @override
@@ -38,6 +35,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<String> _getJsonData() async {
+   final String uri =  "https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=top&page=1&page_size=10&country=ng&f_has_lyrics=1&apikey=${this.privateKey}";
+   
     var response = await http
         .get(Uri.encodeFull(uri), headers: {"Accept": "application/json"});
 
@@ -50,8 +49,6 @@ class _HomePageState extends State<HomePage> {
       topSongs = convertToJson['message']['body']['track_list'];
 
       _isLoadiing = false;
-
-      print(privateKey);
     });
 
     return "success";
