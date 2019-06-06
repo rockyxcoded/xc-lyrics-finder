@@ -1,16 +1,22 @@
-# xc_lyrics_finder
+# XC Fyrics Finder
 
-A new Flutter project.
+A simple lyric search app using the musicmatch api.
 
-## Getting Started
+## Dependencies
+This app depends solely one the musixMatch API. 
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Usage
+- Rename `.env.example` to `.evn` and provide your api key (Compulsory)
+- To run an this app, switch to `xc_lyrics_finder` directory, and use `flutter run`. Make sure you have an emulator running, or a device connected over USB and debugging enabled on that device.
+To verify if your device is connected, run `flutter devices`
+
+   - `cd path-to/xc_lyrics_finder`
+   - `flutter run`
+
+
+
+New to flutter ?
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
