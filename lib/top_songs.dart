@@ -7,21 +7,20 @@ class TopSongs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Center(
-            child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Card(
-          child: Container(
-            child: Text(
+    return Card(
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
               topSongs['track_name'],
               style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
             ),
-            padding: const EdgeInsets.all(20.0),
-          ),
+            Text(topSongs['artist_name']),
+          ],
         ),
-      ],
-    )));
+        padding: const EdgeInsets.all(20.0),
+      ),
+    );
   }
 }
