@@ -47,48 +47,54 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 5.0,
-          title: Text('XC Lyrics Finder'),
-          actions: <Widget>[
-            IconButton(
-              padding: EdgeInsets.only(right: 50.0),
-              onPressed: () {
-                setState(() {
-                  _isLoadiing = true;
-                });
-                _getJsonData();
+      appBar: AppBar(
+        elevation: 5.0,
+        title: Text('XC Lyrics Finder'),
+        actions: <Widget>[
+          IconButton(
+            padding: EdgeInsets.only(right: 50.0),
+            onPressed: () {
+              setState(() {
+                _isLoadiing = true;
+              });
+              _getJsonData();
+            },
+            icon: Icon(
+              Icons.refresh,
+              color: Colors.white,
+            ),
+            iconSize: 28.0,
+          )
+        ],
+      ),
+      body: _isLoadiing
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: topSongs == null ? 0 : topSongs.length,
+              itemBuilder: (BuildContext context, int index) {
+                var song = topSongs[index]['track'];
+                return FlatButton(
+                  padding: EdgeInsets.all(0.0),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailPage(
+                                songId: song['track_id'],
+                                songTitle: song['track_name'],
+                                artistName: song['artist_name'],
+                              )),
+                    );
+                  },
+                  child: TopSongs(song),
+                );
               },
-              icon: Icon(
-                Icons.refresh,
-                color: Colors.white,
-              ),
-              iconSize: 28.0,
-            )
-          ],
-        ),
-        body: _isLoadiing
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                itemCount: topSongs == null ? 0 : topSongs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var song = topSongs[index]['track'];
-                  return FlatButton(
-                    padding: EdgeInsets.all(0.0),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DetailPage(
-                                  songId: song['track_id'],
-                                  songTitle: song['track_name'],
-                                  artistName: song['artist_name'],
-                                )),
-                      );
-                    },
-                    child: TopSongs(song),
-                  );
-                },
-              ));
+            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Increment',
+        child: Icon(Icons.search),
+      ),
+    );
   }
 }
