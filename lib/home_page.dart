@@ -25,6 +25,8 @@ class _HomePageState extends State<HomePage> {
 
   final myController = TextEditingController();
 
+  bool _isValidated = false;
+
   @override
   void dispose() {
     // Clean up the controller when the Widget is disposed
@@ -114,7 +116,8 @@ class _HomePageState extends State<HomePage> {
                           controller: myController,
                           autofocus: true,
                           decoration: InputDecoration(
-                              // labelText: 'Song title',
+                              errorText:
+                                  _isValidated ? "Value Can't Be Empty" : null,
                               hintText: 'Enter song title'),
                         ),
                       )
@@ -127,12 +130,16 @@ class _HomePageState extends State<HomePage> {
                     FlatButton(
                         child: const Text('Search'),
                         onPressed: () {
+                          setState(() {
+                            myController.text.isEmpty
+                                ? _isValidated = true
+                                : _isValidated = false;
+                          });
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => SearchResultScreen(
-                                        songTitle: myController.text
-                                      )));
+                                      songTitle: myController.text)));
                         })
                   ],
                 );
