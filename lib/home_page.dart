@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 import './top_songs.dart';
 import './detail_page.dart';
+import './search_result_screen.dart';
 
 class HomePage extends StatefulWidget {
   //HomePage({Key key}) : super(key: key);
@@ -21,6 +22,15 @@ class _HomePageState extends State<HomePage> {
   String privateKey = DotEnv().env['MM_PRIVATE_KEY'];
 
   List<dynamic> topSongs;
+
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    myController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -91,8 +101,44 @@ class _HomePageState extends State<HomePage> {
               },
             ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
+        onPressed: () {
+          showDialog<String>(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  contentPadding: const EdgeInsets.all(16.0),
+                  content: new Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          controller: myController,
+                          autofocus: true,
+                          decoration: InputDecoration(
+                              // labelText: 'Song title',
+                              hintText: 'Enter song title'),
+                        ),
+                      )
+                    ],
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                        child: const Text('Cancel'),
+                        onPressed: () => Navigator.pop(context)),
+                    FlatButton(
+                        child: const Text('Search'),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SearchResultScreen(
+                                        songTitle: myController.text
+                                      )));
+                        })
+                  ],
+                );
+              });
+        },
+        tooltip: 'search songs',
         child: Icon(Icons.search),
       ),
     );
